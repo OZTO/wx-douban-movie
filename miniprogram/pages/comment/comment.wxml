@@ -1,0 +1,43 @@
+<view class=''>
+  <view class='detail-container' style='background: url({{detail.images.large}}) no-repeat  top/cover'></view>
+  <view class='detail-mask'></view>
+  <view class='detail-info'>
+    <image src="{{detail.images.large}}" class='detail-img'></image>
+    <view class='detail'>
+      <view class='detail-nm'>{{detail.title}}</view>
+      <view>{{detail.original_title}}</view>
+      <view class='detail.sc'>{{detail.rating.average}}分</view>
+      <view>{{detail.countries[0]}}</view>
+      <view>导演：{{detail.directors[0].name}}</view>
+    </view>
+  </view>
+  <view class='desc'>{{detail.summary}}</view>
+  <!-- 已有评价 -->
+  <view class="comments">
+    <view class="title">已有评价：</view>
+    <view class="item" wx:for="{{comments}}" wx:key="{{index}}">
+      <text class="text">内容：{{item.content}}</text>
+      <text class="text">评分：{{item.score}}分</text>
+      <view class="img-wrap">
+        <view wx:if="{{item.fileIds.length > 0}}">
+          图片：
+          <image class="comments-img" wx:for="{{item.fileIds}}" wx:key="{{index}}" src="{{item}}"></image>
+        </view>
+        <view wx:else><text>没有上传图片</text></view>
+      </view>
+    </view>
+  </view>
+  <!-- 评价 -->
+  <van-field
+    value="{{ content }}"
+    placeholder="写一些评价吧"
+    border="{{ false }}"
+    bind:change="onContentChange"
+  />
+  <van-rate value="{{ score }}" bind:change="onScoreChange" />
+  <van-button type="warning" bindtap="uploadImg">上传图片</van-button>
+  <view>
+    <image class="comment-img" wx:for="{{images}}" wx:key="{{index}}" src="{{item}}"></image>
+  </view>
+  <van-button size="large" type="danger" bindtap="submit">提交评价</van-button>
+</view>
